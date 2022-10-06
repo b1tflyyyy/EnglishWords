@@ -2,7 +2,7 @@
 using EnglishWords.BL.Controller;
 using System;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 namespace View.CMD
 {
@@ -14,7 +14,7 @@ namespace View.CMD
             LoadConsoleConfig();
 
             // приветствие
-            Console.WriteLine("Вітаємо в програмі EnglishWords! \nСпочатку оберіть режим вивчення: \n\twords - режим вивчення слів \n\tverbs - вивчення правильних та неправильних дієслів");
+            Console.WriteLine("Вітаємо в програмі EnglishWords! \nСпочатку оберіть режим вивчення: \n\twords - режим вивчення слів \n\tverbs - вивчення неправильних дієслів");
 
             // Режим обучения
             var mode = "";
@@ -59,9 +59,11 @@ namespace View.CMD
 
             if (mode == "words")
             {
+                #region Записали все слова которые хотим учить
+                
                 Console.WriteLine("Введіть кількість слів, які ви хочете вивчити.");
                 
-                countWords = TryInt(Console.ReadLine());
+                countWords = TryInt();
 
                 Console.Clear();
 
@@ -81,22 +83,94 @@ namespace View.CMD
 
                     Console.Clear();
                 }
-                
-                
-                Console.WriteLine("Вітаю! Ви завершили ввід слів :)");
+
+                #endregion
+
+                // Закончили ввод слов
+                Console.WriteLine("Вітаю! Ви завершили ввід слів :)\nПерейдемо до вивчення!");
+
+                Console.WriteLine();
+
+                while (true)
+                {
+                    var listErrorWords = new List<Word>();
+
+                    // кол-во правильных ответов
+                    var countCorrectAnswer = 0;
+
+                    // кол-во неправильных ответов
+                    var countInCorrectAnswer = 0;
+
+                    // процент правльных ответов
+                    var interestCorrectAnswer = 0;
+
+                    // процент неправильных ответов
+                    var interestInCorrectAnswer = 0;
+
+                    // кол-во всех ответов
+                    var allAnswers = 0;
+
+                    for (int i = 0; i < countWords; i++)
+                    {
+                        var word = wordController[i];
+
+                        Console.Write($"Введіть переклад слова {word.EnWord}: ");
+
+                        var translate = Console.ReadLine();
+
+                        if (translate == word.UkWord)
+                        {
+                            // считаем сколько было правильных ответов
+                            countCorrectAnswer++;
+                            Console.WriteLine("Вірно! Так тримати!");
+                            Thread.Sleep(1500);
+                        }
+                        else
+                        {
+                            // считаем сколько было неправльных ответов
+                            countInCorrectAnswer++;
+                            listErrorWords.Add(word);
+                            Console.WriteLine($"Нажаль ви помилилися, правильна відповідь - {word.UkWord}.");
+                            Thread.Sleep(5500);
+                        }
+
+                        Console.Clear();
+                    }
+                    
+                    // Кол-во всех ответов
+                    allAnswers = countCorrectAnswer + countInCorrectAnswer;
+
+                    // процент правильных ответов
+                    interestCorrectAnswer = countCorrectAnswer * 100 / allAnswers;
+
+                    // процент неверных ответов
+                    interestInCorrectAnswer = 100 - interestCorrectAnswer;
+
+                    Console.WriteLine($"Вітаємо! \nВи завершили вивчення слів з такими результатами: \n\nКількість правильно перекладених слів: {countCorrectAnswer} - {interestCorrectAnswer}%, \nКількість неправильно перекладених слів: {countInCorrectAnswer} - {interestInCorrectAnswer}%");
+                    
+                    Console.WriteLine("\nЗверніть увагу на ці слова: ");
+                    
+                    // Выводим слова которые быди неправльно переведены
+                    foreach(Word word in listErrorWords)
+                    {
+                        Console.WriteLine($"\nСлово на англійській мові: {word.EnWord} \nПереклад: {word.UkWord}");
+                    }
+
+                    Console.WriteLine("\nЯкщо ви бажаєте знов повторити слова, введіть repeat, інакше натисніть Enter");
+
+                    var input = Console.ReadLine();
+
+                    if (input == "repeat") Console.Clear();
+                    else break;
+                }
             }
 
             #endregion
             
+            // Если режим неправильных глаголов 
             else
             {
 
-            }
-            
-            // Выводим все данные (для теста)
-            foreach(var word in wordController)
-            {
-                Console.WriteLine(word);
             }
         }
 
@@ -112,15 +186,18 @@ namespace View.CMD
             Console.InputEncoding = Encoding.Unicode;
         }
 
+
         /// <summary>
-        /// Попробывть спарсить число.
+        /// Попробовать спарсить число.
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        private static int TryInt(string num)
+        private static int TryInt()
         {
             while (true)
             {
+                var num = Console.ReadLine();
+
                 if (int.TryParse(num, out int result) && result <= 500)
                 {
                     return result;
