@@ -1,26 +1,34 @@
 ﻿using EnglishWords.BL.Model;
 using System;
-using System.Collections;
 
 namespace EnglishWords.BL.Controller
 {
-    public class WordController : IEnumerable<Word>
+    /// <summary>
+    /// Logic of words.
+    /// </summary>
+    public class WordController 
     {
         /// <summary>
-        /// Список всех слов.
+        /// List of words in which there was an error.
+        /// </summary>
+        private List<Word> _listErrorWords = new List<Word>();
+
+        /// <summary>
+        /// List of all words.
         /// </summary>
         private List<Word> _words = new List<Word>();
 
         /// <summary>
-        /// Кол-во всех слов.
+        /// Amount of all words.
         /// </summary>
         private int Count => _words.Count; 
 
+        
         /// <summary>
-        /// Добавление слова.
+        /// Add a word.
         /// </summary>
-        /// <param name="word"></param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="word">Word.</param>
+        /// <exception cref="ArgumentNullException">Null</exception>
         public void Add(Word word)
         {
             if(word == null) throw new ArgumentNullException(nameof(word));
@@ -30,30 +38,95 @@ namespace EnglishWords.BL.Controller
             }
         }
 
+
         /// <summary>
-        /// Вернуть/установить слово по id.
+        /// Get/set the word by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Word this[int id]
+        /// <param name="id">Id.</param>
+        /// <returns>Word.</returns>
+        public Word GetWord(int id)
         {
-            get
+            if (id < Count) return _words[id];
+            else throw new ArgumentOutOfRangeException(nameof(id));
+        }
+
+
+        /// <summary>
+        /// Compare words.
+        /// </summary>
+        /// <param name="word">Word.</param>
+        /// <param name="translate">Translate.</param>
+        /// <returns>Bool.</returns>
+        public bool CompareWords(Word word, string translate)
+        {
+            var dataWords = GetInfoAboutWords(word, translate);
+
+            if (dataWords.countCorrectLet > dataWords.countTranslateLet 
+                || dataWords.countTranslateLet == 0) return PlusInCorrectAnswer(word);
+
+            else
             {
-                if (id < Count) return _words[id];
-                else return null;
-            }
-            set
-            {
-                if(id < Count) _words[id] = value;
+                var sameLet = 0;
+
+                for (int i = 0; i < dataWords.countCorrectLet; i++)
+                    if (dataWords.simpleUkWord[i] == dataWords.simpleTranslate[i])
+                        sameLet++;
+
+                int interests = 100 * sameLet / dataWords.countCorrectLet;
+
+                if (interests >= 60) return PlusCorrectAnswer();
+                else return PlusInCorrectAnswer(word);
             }
         }
 
-        #region Интерфейс IEnumerable
 
-        IEnumerator<Word> IEnumerable<Word>.GetEnumerator() => _words.GetEnumerator();
+        /// <summary>
+        /// Get more information about words.
+        /// </summary>
+        /// <param name="word">Word.</param>
+        /// <param name="translate">Translate.</param>
+        /// <returns></returns>
+        private (string simpleUkWord, 
+                 string simpleTranslate,
+                 int countTranslateLet,
+                 int countCorrectLet) 
+                 GetInfoAboutWords(Word word, string translate)
+        {
+            var simpleUkWord = word.UaWord.Replace(" ", "").ToLower();
+            
+            var simpleTranslate = translate.Replace(" ", "").ToLower();
+            
+            var countCorrectLet = simpleUkWord.Count();
+            
+            var countTranslateLet = simpleTranslate.Count();
 
-        IEnumerator IEnumerable.GetEnumerator() => _words.GetEnumerator();
+            return (simpleUkWord, simpleTranslate, countTranslateLet, countCorrectLet);
+        }
+
         
-        #endregion
+        /// <summary>
+        /// Add the correct answer.
+        /// </summary>
+        /// <returns>Bool.</returns>
+        private bool PlusCorrectAnswer() => true;
+
+        
+        /// <summary>
+        /// Add the incorrect answer.
+        /// </summary>
+        /// <param name="word">Word.</param>
+        /// <returns>Bool.</returns>
+        private bool PlusInCorrectAnswer(Word word) 
+        { 
+            _listErrorWords.Add(word);
+            return false;
+        }
+
+        
+        /// <summary>
+        /// Get the incorrect words.
+        /// </summary>
+        /// <returns></returns>
+        public List<Word> GetInCorrectWords() => _listErrorWords;
     }
 }

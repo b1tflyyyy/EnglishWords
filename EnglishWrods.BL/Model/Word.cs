@@ -2,27 +2,47 @@
 
 namespace EnglishWords.BL.Model
 {
+    /// <summary>
+    /// Word.
+    /// </summary>
     public class Word
     {
         /// <summary>
-        /// Id слова.
+        /// Id word.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Слово на укр языке.
+        /// Word in Ukrainian.
         /// </summary>
-        public string UkWord { get; set; }
+        public string? UaWord { get; set; }
 
         /// <summary>
-        /// Слово на англ языке.
+        /// Word in English.
         /// </summary>
-        public string EnWord { get; set; }
+        public string? EnWord { get; set; }
 
         /// <summary>
-        /// Возвращаем строку.
+        /// Set word.
         /// </summary>
-        /// <returns></returns>
-        public override string ToString() => $"{Id} {EnWord} {UkWord}";
+        /// <param name="id"></param>
+        /// <param name="enWord"></param>
+        /// <param name="uaWord"></param>
+        public Word(int id, string? enWord, string? uaWord)
+        {
+            // TODO: Chek input data
+
+            Id = id;
+            UaWord = uaWord;
+            EnWord = enWord;
+        }
+
+
+
+        /// <summary>
+        /// Return string.
+        /// </summary>
+        /// <returns>Word.</returns>
+        public override string ToString() => $"{Id} {EnWord} {UaWord}";
     }
 }

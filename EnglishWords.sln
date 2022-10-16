@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View.CMD", "EnglishWords\View.CMD.csproj", "{8A2032FB-8E58-4484-890F-9DA70B729735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.CMD", "EnglishWords\View.CMD.csproj", "{8A2032FB-8E58-4484-890F-9DA70B729735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishWords.BL", "EnglishWrods.BL\EnglishWords.BL.csproj", "{834CD049-C431-443F-A15E-CA7094C5A21F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishWords.BL", "EnglishWrods.BL\EnglishWords.BL.csproj", "{834CD049-C431-443F-A15E-CA7094C5A21F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
