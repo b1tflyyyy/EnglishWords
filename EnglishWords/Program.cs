@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Resources;
 
 namespace View.CMD
-{
+{ 
     internal class Program
     {
         private static CultureInfo culture = CultureInfo.CreateSpecificCulture("uk-ua");
@@ -16,42 +16,38 @@ namespace View.CMD
         {
             LoadConsoleConfig();
 
-            // приветствие
             Console.WriteLine($"{RM("Hello")} \n{RM("ChooseLearn")} \n\t{RM("Words")} \n\t{RM("IrregularVerbs")}");
 
             var mode = ChooseMode();
 
-            // Кол-во глаголов
-            //var countVerbs = 0;
-
-            // контроллер 
+            // controller
             var wordController = new WordController();
             var statisticsController = new StatisticsController();
 
             var statistics = new Statistics();
 
-            #region Если режим - учить слова
+            #region If mode learn words
 
             if (mode == "words")
             {
-                #region Записали все слова которые хотим учить
+                #region Write all words 
                 
-                Console.WriteLine("Введіть кількість слів, які ви хочете вивчити.");
+                Console.WriteLine($"{RM("EnterAmountWords")}");
                 
                 var countWords = TryInt();
 
                 Console.Clear();
 
-                // Добаляем n кол-во слов 
+                // Add n-amount words
                 for(int i = 0; i < countWords; i++)
                 {
-                    Console.Write("Введіть слово на англійській мові: ");
+                    Console.Write($"{RM("EnterEnglishWord")} ");
                     var enWord = Console.ReadLine();
                     
-                    Console.Write("Введіть переклад: ");
+                    Console.Write($"{RM("EnterTranslate")} ");
                     var uaWord = Console.ReadLine();
 
-                    // Заполняем модель слова
+                    // Model word
                     var word = new Word(i, uaWord, enWord);
 
                     wordController.Add(word);
@@ -61,8 +57,8 @@ namespace View.CMD
 
                 #endregion
 
-                // Закончили ввод слов
-                Console.WriteLine("Вітаю! Ви завершили ввід слів :)\nПерейдемо до вивчення!");
+                // End enter
+                Console.WriteLine($"{RM("EndEnterWord")} \n{RM("GoLearn")}");
 
                 Console.WriteLine();
 
@@ -72,23 +68,23 @@ namespace View.CMD
                     {
                         var word = wordController.GetWord(i);
 
-                        Console.Write($"Введіть переклад слова {word.EnWord}: ");
+                        Console.Write($"{RM("EnterTranslateWordLearn")} {word.EnWord}: ");
 
                         var translate = Console.ReadLine();
 
-                        // Получаем результат сравнения слов
+                        // Get result compare words
                         var result = wordController.CompareWords(word, translate);
 
                         statistics.WriteStat(result);
 
                         if (result)
                         {
-                            Console.WriteLine("Вірно! Так тримати!");
+                            Console.WriteLine($"{RM("CorrectAnswer")}");
                             Thread.Sleep(1500);
                         }
                         else
                         {
-                            Console.WriteLine($"Нажаль ви помилилися, правильна відповідь - {word.UaWord}.");
+                            Console.WriteLine($"{RM("IncorrectAnswer")} - {word.UaWord}.");
                             Thread.Sleep(5500);
                         }
 
@@ -99,17 +95,17 @@ namespace View.CMD
                     var stat = statisticsController.GetStatistics(statistics);
                     statistics.ClearStat();
 
-                    Console.WriteLine($"Вітаємо! \nВи завершили вивчення слів з такими результатами: \n\nКількість правильно перекладених слів: {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \nКількість неправильно перекладених слів: {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");
+                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");
                     
-                    Console.WriteLine("\nЗверніть увагу на ці слова: ");
+                    Console.WriteLine($"\n{RM("ToPayAttentionWords")} ");
                     
-                    // Выводим слова которые быди неправльно переведены
+                    // out incorrect words
                     foreach(Word word in wordController.GetInCorrectWords())
                     {
-                        Console.WriteLine($"\nСлово на англійській мові: {word.EnWord} \nПереклад: {word.UaWord}");
+                        Console.WriteLine($"\n{RM("WordInEnglishLanguage")} {word.EnWord} \n{RM("TranslateWord")} {word.UaWord}");
                     }
 
-                    Console.WriteLine("\nЯкщо ви бажаєте знов повторити слова, введіть repeat, інакше натисніть Enter");
+                    Console.WriteLine($"\n{RM("RepeatOrExit")}");
 
                     var input = Console.ReadLine();
 
@@ -120,7 +116,6 @@ namespace View.CMD
 
             #endregion
             
-            // Если режим неправильных глаголов 
             else
             {
 
@@ -128,7 +123,7 @@ namespace View.CMD
         }
 
         /// <summary>
-        /// Конфиг консоли.
+        /// Console config.
         /// </summary>
         private static void LoadConsoleConfig()
         {
@@ -140,7 +135,7 @@ namespace View.CMD
         }
 
         /// <summary>
-        /// Выбрать режим.
+        /// Choose mode.
         /// </summary>
         /// <returns></returns>
         private static string ChooseMode()
@@ -153,13 +148,13 @@ namespace View.CMD
                 
                 else if (input == "verbs") { Console.Clear(); return input; }
 
-                else Console.WriteLine("Мабуть ви ввели невірний режим! \nСпробуйте ще раз :)");
+                else Console.WriteLine($"{RM("IncorrectMode")} \n{RM("TryAgain")}");
             }
         }
 
 
         /// <summary>
-        /// Попробовать спарсить число.
+        /// Try parse num.
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -175,13 +170,13 @@ namespace View.CMD
                 }
                 else
                 {
-                    Console.WriteLine("Мабуть ви ввели не число, або перевищили ліміт слів(500).");
+                    Console.WriteLine($"{RM("ErrorOrCountWordsOverflow")}");
                 }
             }
         }
 
         /// <summary>
-        /// Ресурс мененджер.
+        /// Resource manager.
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>

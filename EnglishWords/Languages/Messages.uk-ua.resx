@@ -117,14 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AmountCorrectTranslateWord" xml:space="preserve">
+    <value>Кількість правильно перекладених слів:</value>
+  </data>
+  <data name="AmountIncorrectTranslateWord" xml:space="preserve">
+    <value>Кількість неправильно перекладених слів:</value>
+  </data>
   <data name="ChooseLearn" xml:space="preserve">
     <value>Спочатку оберіть режим вивчення:</value>
+  </data>
+  <data name="CorrectAnswer" xml:space="preserve">
+    <value>Вірно! Так тримати!</value>
+  </data>
+  <data name="EndEnterWord" xml:space="preserve">
+    <value>Вітаю! Ви завершили ввід слів :)</value>
+  </data>
+  <data name="EndLearnWords" xml:space="preserve">
+    <value>Ви завершили вивчення слів з такими результатами:</value>
+  </data>
+  <data name="EnterAmountWords" xml:space="preserve">
+    <value>Введіть кількість слів, які ви хочете вивчити.</value>
+  </data>
+  <data name="EnterEnglishWord" xml:space="preserve">
+    <value>Введіть слово на англійській мові:</value>
+  </data>
+  <data name="EnterTranslate" xml:space="preserve">
+    <value>Введіть переклад:</value>
+  </data>
+  <data name="EnterTranslateWordLearn" xml:space="preserve">
+    <value>Введіть переклад слова</value>
+  </data>
+  <data name="ErrorOrCountWordsOverflow" xml:space="preserve">
+    <value>Мабуть ви ввели не число, або перевищили ліміт слів(500).</value>
+  </data>
+  <data name="GoLearn" xml:space="preserve">
+    <value>Перейдемо до вивчення!</value>
+  </data>
+  <data name="Greating" xml:space="preserve">
+    <value>Вітаємо!</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>Вітаємо в програмі EnglishWords! </value>
   </data>
+  <data name="IncorrectAnswer" xml:space="preserve">
+    <value>Нажаль ви помилилися, правильна відповідь</value>
+  </data>
+  <data name="IncorrectMode" xml:space="preserve">
+    <value>Мабуть ви ввели невірний режим!</value>
+  </data>
   <data name="IrregularVerbs" xml:space="preserve">
     <value>verbs - вивчення неправильних дієслів</value>
+  </data>
+  <data name="RepeatOrExit" xml:space="preserve">
+    <value>Якщо ви бажаєте знов повторити слова, введіть repeat, інакше натисніть Enter</value>
+  </data>
+  <data name="ToPayAttentionWords" xml:space="preserve">
+    <value>Зверніть увагу на ці слова:</value>
+  </data>
+  <data name="TranslateWord" xml:space="preserve">
+    <value>Переклад:</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Спробуйте ще раз :)</value>
+  </data>
+  <data name="WordInEnglishLanguage" xml:space="preserve">
+    <value>Слово на англійській мові:</value>
   </data>
   <data name="Words" xml:space="preserve">
     <value>words - режим вивчення слів</value>
