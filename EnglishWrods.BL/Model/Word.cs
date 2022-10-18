@@ -28,9 +28,15 @@ namespace EnglishWords.BL.Model
         /// <param name="id"></param>
         /// <param name="enWord"></param>
         /// <param name="uaWord"></param>
-        public Word(int id, string? enWord, string? uaWord)
+        public Word(int id, string enWord, string uaWord)
         {
-            // TODO: Chek input data
+            #region Check input data
+            
+            if(id < 0) throw new ArgumentNullException(nameof(id), "id < 0");
+            if (string.IsNullOrEmpty(enWord)) throw new ArgumentNullException(nameof(enWord));
+            if (string.IsNullOrEmpty(uaWord)) throw new ArgumentNullException(nameof(uaWord));
+
+            #endregion
 
             Id = id;
             UaWord = uaWord;

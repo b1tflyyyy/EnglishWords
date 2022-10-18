@@ -20,7 +20,7 @@ namespace View.CMD
 
             var mode = ChooseMode();
 
-            // controller
+            
             var wordController = new WordController();
             var statisticsController = new StatisticsController();
 
@@ -38,16 +38,15 @@ namespace View.CMD
 
                 Console.Clear();
 
-                // Add n-amount words
+                
                 for(int i = 0; i < countWords; i++)
                 {
                     Console.Write($"{RM("EnterEnglishWord")} ");
-                    var enWord = Console.ReadLine();
+                    var enWord = TryString();
                     
                     Console.Write($"{RM("EnterTranslate")} ");
-                    var uaWord = Console.ReadLine();
+                    var uaWord = TryString();
 
-                    // Model word
                     var word = new Word(i, uaWord, enWord);
 
                     wordController.Add(word);
@@ -57,7 +56,7 @@ namespace View.CMD
 
                 #endregion
 
-                // End enter
+                
                 Console.WriteLine($"{RM("EndEnterWord")} \n{RM("GoLearn")}");
 
                 Console.WriteLine();
@@ -70,22 +69,22 @@ namespace View.CMD
 
                         Console.Write($"{RM("EnterTranslateWordLearn")} {word.EnWord}: ");
 
-                        var translate = Console.ReadLine();
+                        var translate = TryString();
 
-                        // Get result compare words
+                        
                         var result = wordController.CompareWords(word, translate);
 
-                        statistics.WriteStat(result);
+                        statistics.AddStat(result);
 
                         if (result)
                         {
                             Console.WriteLine($"{RM("CorrectAnswer")}");
-                            Thread.Sleep(1500);
+                            Delay(1500);
                         }
                         else
                         {
                             Console.WriteLine($"{RM("IncorrectAnswer")} - {word.UaWord}.");
-                            Thread.Sleep(5500);
+                            Delay(5500);
                         }
 
                         Console.Clear();
@@ -99,7 +98,7 @@ namespace View.CMD
                     
                     Console.WriteLine($"\n{RM("ToPayAttentionWords")} ");
                     
-                    // out incorrect words
+                    
                     foreach(Word word in wordController.GetInCorrectWords())
                     {
                         Console.WriteLine($"\n{RM("WordInEnglishLanguage")} {word.EnWord} \n{RM("TranslateWord")} {word.UaWord}");
@@ -122,15 +121,15 @@ namespace View.CMD
             }
         }
 
+        #region Console IO helper 
+
         /// <summary>
         /// Console config.
         /// </summary>
         private static void LoadConsoleConfig()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-
             Console.OutputEncoding = Encoding.Unicode;
-
             Console.InputEncoding = Encoding.Unicode;
         }
 
@@ -145,13 +144,10 @@ namespace View.CMD
                 var input = Console.ReadLine();
 
                 if (input == "words") { Console.Clear();  return input; }
-                
                 else if (input == "verbs") { Console.Clear(); return input; }
-
                 else Console.WriteLine($"{RM("IncorrectMode")} \n{RM("TryAgain")}");
             }
         }
-
 
         /// <summary>
         /// Try parse num.
@@ -176,10 +172,33 @@ namespace View.CMD
         }
 
         /// <summary>
+        /// Try parse only complete string.
+        /// </summary>
+        /// <returns></returns>
+        private static string TryString()
+        {
+            while (true)
+            {
+                var input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input)) Console.WriteLine($"{RM("ErrorNullInput")} \n{RM("TryAgain")}");
+                else return input; 
+            }
+        }
+
+        /// <summary>
+        /// Delay.
+        /// </summary>
+        /// <param name="delay"></param>
+        private static void Delay(int delay) => Thread.Sleep(delay);
+
+        /// <summary>
         /// Resource manager.
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         private static string? RM(string str) => resourceManager?.GetString(str, culture);
+
+        #endregion
     }
 }

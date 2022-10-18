@@ -51,7 +51,7 @@ namespace EnglishWords.BL.Model
                           int persentageCorrectAnswer,
                           int persentageInCorrectAnswer)
         {
-            #region Chek data
+            #region Check data
             
             if (countCorrectAnswer < 0) throw new ArgumentNullException(nameof(countCorrectAnswer));
 
@@ -73,7 +73,7 @@ namespace EnglishWords.BL.Model
         /// Record data for statistics.
         /// </summary>
         /// <param name="result"></param>
-        public void WriteStat(bool result)
+        public void AddStat(bool result)
         {
             if (result) CountCorrectAnswer++;
             else CountInCorrectAnswer++;

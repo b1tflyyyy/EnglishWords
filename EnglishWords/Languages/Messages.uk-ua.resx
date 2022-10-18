@@ -147,6 +147,9 @@
   <data name="EnterTranslateWordLearn" xml:space="preserve">
     <value>Введіть переклад слова</value>
   </data>
+  <data name="ErrorNullInput" xml:space="preserve">
+    <value>Схоже ви не ввели нічого.</value>
+  </data>
   <data name="ErrorOrCountWordsOverflow" xml:space="preserve">
     <value>Мабуть ви ввели не число, або перевищили ліміт слів(500).</value>
   </data>

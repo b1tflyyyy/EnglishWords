@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.CMD", "EnglishWords\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishWords.BL", "EnglishWrods.BL\EnglishWords.BL.csproj", "{834CD049-C431-443F-A15E-CA7094C5A21F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishWords.BLTests", "EnglishWords.BLTests\EnglishWords.BLTests.csproj", "{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{834CD049-C431-443F-A15E-CA7094C5A21F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{834CD049-C431-443F-A15E-CA7094C5A21F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{834CD049-C431-443F-A15E-CA7094C5A21F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
