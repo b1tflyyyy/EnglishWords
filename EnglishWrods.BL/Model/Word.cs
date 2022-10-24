@@ -5,8 +5,10 @@ namespace EnglishWords.BL.Model
     /// <summary>
     /// Word.
     /// </summary>
-    public class Word
+    [Serializable] public class Word
     {
+        #region Properties
+
         /// <summary>
         /// Id word.
         /// </summary>
@@ -21,6 +23,10 @@ namespace EnglishWords.BL.Model
         /// Word in English.
         /// </summary>
         public string? EnWord { get; set; }
+
+        #endregion
+
+        public Word() { }
 
         /// <summary>
         /// Set word.
@@ -49,6 +55,6 @@ namespace EnglishWords.BL.Model
         /// Return string.
         /// </summary>
         /// <returns>Word.</returns>
-        public override string ToString() => $"{Id} {EnWord} {UaWord}";
+        public override string ToString() => $"Id: {Id} \nword in english: {EnWord} \nword in ukrainian: {UaWord}.";
     }
 }

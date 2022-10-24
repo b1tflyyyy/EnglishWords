@@ -4,20 +4,21 @@ using System;
 using System.Text;
 using System.Globalization;
 using System.Resources;
+using System.Data;
 
 namespace View.CMD
 { 
     internal class Program
     {
-        private static CultureInfo culture = CultureInfo.CreateSpecificCulture("uk-ua");
-        private static ResourceManager? resourceManager = new ResourceManager("View.CMD.Languages.Messages", typeof(Program).Assembly);
+        private static readonly CultureInfo culture = CultureInfo.CreateSpecificCulture("uk-ua");
+        private static readonly ResourceManager? resourceManager = new ResourceManager("View.CMD.Languages.Messages", typeof(Program).Assembly);
         
+
         private static void Main(string[] args)
         {
             LoadConsoleConfig();
 
             Console.WriteLine($"{RM("Hello")} \n{RM("ChooseLearn")} \n\t{RM("Words")} \n\t{RM("IrregularVerbs")}");
-
             var mode = ChooseMode();
 
             
@@ -25,41 +26,54 @@ namespace View.CMD
             var statisticsController = new StatisticsController();
 
             var statistics = new Statistics();
+       
 
             #region If mode learn words
 
             if (mode == "words")
             {
-                #region Write all words 
-                
-                Console.WriteLine($"{RM("EnterAmountWords")}");
-                
-                var countWords = TryInt();
+                var dataIsAvailable = wordController.CheckDataAvailable();
+                var needWriteWords = false;
+                var countWords = 0;
 
-                Console.Clear();
-
-                
-                for(int i = 0; i < countWords; i++)
+                if (dataIsAvailable)
                 {
-                    Console.Write($"{RM("EnterEnglishWord")} ");
-                    var enWord = TryString();
-                    
-                    Console.Write($"{RM("EnterTranslate")} ");
-                    var uaWord = TryString();
+                    Console.WriteLine($"{RM("DoYouWantLoadWords")} \n\t{RM("LoadWords")} \n\t{RM("NoLoadWords")}");
+                    var input = TryInt($"{RM("InputError")} \n{RM("TryAgain")}", 1);
 
-                    var word = new Word(i, uaWord, enWord);
-
-                    wordController.Add(word);
+                    if (input == 0)
+                        countWords = wordController.LoadWords();
+                    else
+                        needWriteWords = true;
 
                     Console.Clear();
                 }
+                    
+                if (!dataIsAvailable || needWriteWords)
+                {
+                    Console.WriteLine($"{RM("EnterAmountWords")}");
+                    countWords = TryInt($"{RM("ErrorOrCountWordsOverflow")}", 500);
 
-                #endregion
+                    Console.Clear();
 
-                
-                Console.WriteLine($"{RM("EndEnterWord")} \n{RM("GoLearn")}");
 
-                Console.WriteLine();
+                    for (int i = 0; i < countWords; i++)
+                    {
+                        Console.Write($"{RM("EnterEnglishWord")} ");
+                        var enWord = TryString();
+
+                        Console.Write($"{RM("EnterTranslate")} ");
+                        var uaWord = TryString();
+
+                        var word = new Word(i, enWord, uaWord);
+                        wordController.Add(word);
+
+                        Console.Clear();
+                    }
+
+                    Console.WriteLine($"{RM("EndEnterWord")} \n{RM("GoLearn")}");
+                    Console.WriteLine();
+                }
 
                 while (true)
                 {
@@ -68,12 +82,9 @@ namespace View.CMD
                         var word = wordController.GetWord(i);
 
                         Console.Write($"{RM("EnterTranslateWordLearn")} {word.EnWord}: ");
-
                         var translate = TryString();
 
-                        
                         var result = wordController.CompareWords(word, translate);
-
                         statistics.AddStat(result);
 
                         if (result)
@@ -90,22 +101,21 @@ namespace View.CMD
                         Console.Clear();
                     }
 
-
+                    // TODO: redo output statistics
                     var stat = statisticsController.GetStatistics(statistics);
                     statistics.ClearStat();
 
-                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");
-                    
+                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");                    
                     Console.WriteLine($"\n{RM("ToPayAttentionWords")} ");
-                    
                     
                     foreach(Word word in wordController.GetInCorrectWords())
                     {
                         Console.WriteLine($"\n{RM("WordInEnglishLanguage")} {word.EnWord} \n{RM("TranslateWord")} {word.UaWord}");
                     }
 
-                    Console.WriteLine($"\n{RM("RepeatOrExit")}");
 
+                    // TODO: redo exit or repeat
+                    Console.WriteLine($"\n{RM("RepeatOrExit")}");
                     var input = Console.ReadLine();
 
                     if (input == "repeat") Console.Clear();
@@ -115,6 +125,7 @@ namespace View.CMD
 
             #endregion
             
+
             else
             {
 
@@ -143,9 +154,22 @@ namespace View.CMD
             {
                 var input = Console.ReadLine();
 
-                if (input == "words") { Console.Clear();  return input; }
-                else if (input == "verbs") { Console.Clear(); return input; }
-                else Console.WriteLine($"{RM("IncorrectMode")} \n{RM("TryAgain")}");
+                if (input == "words") 
+                { 
+                    Console.Clear();  
+                    return input; 
+                }
+                else if (input == "verbs") 
+                { 
+                    Console.Clear(); 
+                    return input; 
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"{RM("IncorrectMode")} \n{RM("TryAgain")}");
+                    Console.WriteLine();
+                }
             }
         }
 
@@ -154,19 +178,21 @@ namespace View.CMD
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        private static int TryInt()
+        private static int TryInt(string error, int max)
         {
             while (true)
             {
                 var num = Console.ReadLine();
 
-                if (int.TryParse(num, out int result) && result <= 500)
+                if (int.TryParse(num, out int result) && result >= 0 && result <= max)
                 {
                     return result;
                 }
                 else
                 {
-                    Console.WriteLine($"{RM("ErrorOrCountWordsOverflow")}");
+                    Console.WriteLine();
+                    Console.WriteLine(error);
+                    Console.WriteLine();
                 }
             }
         }
@@ -181,8 +207,14 @@ namespace View.CMD
             {
                 var input = Console.ReadLine();
 
-                if (string.IsNullOrEmpty(input)) Console.WriteLine($"{RM("ErrorNullInput")} \n{RM("TryAgain")}");
-                else return input; 
+                if (string.IsNullOrEmpty(input))
+                { 
+                    Console.WriteLine($"{RM("ErrorNullInput")} \n{RM("TryAgain")}");
+                }
+                else
+                {
+                    return input;
+                }
             }
         }
 

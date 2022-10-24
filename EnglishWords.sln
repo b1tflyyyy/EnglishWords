@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.CMD", "EnglishWords\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishWords.BL", "EnglishWrods.BL\EnglishWords.BL.csproj", "{834CD049-C431-443F-A15E-CA7094C5A21F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishWords.BLTests", "EnglishWords.BLTests\EnglishWords.BLTests.csproj", "{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishWords.BLTests", "EnglishWords.BLTests\EnglishWords.BLTests.csproj", "{B52B9BCE-4511-4AEC-99C1-6C2821CA033E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93FA2085-7FA4-4DD0-AF7A-9FEDFF6E192B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

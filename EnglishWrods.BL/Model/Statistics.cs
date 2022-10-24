@@ -8,6 +8,8 @@ namespace EnglishWords.BL.Model
     /// </summary>
     public class Statistics
     {
+        #region Properties
+
         /// <summary>
         /// Amount the correct answers.
         /// </summary>
@@ -32,6 +34,8 @@ namespace EnglishWords.BL.Model
         /// Amount all answers.
         /// </summary>
         public int CountAllAnswers { get; private set; } = 0;
+
+        #endregion
 
         /// <summary>
         /// Blank constructor

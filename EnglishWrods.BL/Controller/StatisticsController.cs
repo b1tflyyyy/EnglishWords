@@ -8,8 +8,6 @@ namespace EnglishWords.BL.Controller
     /// </summary>
     public class StatisticsController
     {
-        // TODO: Add compare last statistics and now statistics;
-
         /// <summary>
         /// Get word statistics.
         /// </summary>

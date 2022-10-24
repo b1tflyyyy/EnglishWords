@@ -129,6 +129,9 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>Вірно! Так тримати!</value>
   </data>
+  <data name="DoYouWantLoadWords" xml:space="preserve">
+    <value>У вас є збережені слова, можливо ви хочете завантажити та повторити їх?</value>
+  </data>
   <data name="EndEnterWord" xml:space="preserve">
     <value>Вітаю! Ви завершили ввід слів :)</value>
   </data>
@@ -168,8 +171,17 @@
   <data name="IncorrectMode" xml:space="preserve">
     <value>Мабуть ви ввели невірний режим!</value>
   </data>
+  <data name="InputError" xml:space="preserve">
+    <value>Схоже, ви помилилися з вводом)</value>
+  </data>
   <data name="IrregularVerbs" xml:space="preserve">
     <value>verbs - вивчення неправильних дієслів</value>
+  </data>
+  <data name="LoadWords" xml:space="preserve">
+    <value>натисніть 0, якщо ви хочете завантажити данні</value>
+  </data>
+  <data name="NoLoadWords" xml:space="preserve">
+    <value>натисніть 1, якщо ви не хочете завантажити данні</value>
   </data>
   <data name="RepeatOrExit" xml:space="preserve">
     <value>Якщо ви бажаєте знов повторити слова, введіть repeat, інакше натисніть Enter</value>

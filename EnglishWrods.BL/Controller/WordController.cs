@@ -6,7 +6,7 @@ namespace EnglishWords.BL.Controller
     /// <summary>
     /// Logic of words.
     /// </summary>
-    public class WordController 
+    [Serializable] public class WordController : ControllerBase
     {
         /// <summary>
         /// List of words in which there was an error.
@@ -21,9 +21,14 @@ namespace EnglishWords.BL.Controller
         /// <summary>
         /// Amount of all words.
         /// </summary>
-        private int Count => _words.Count; 
+        private int count => _words.Count;
 
-        
+        /// <summary>
+        /// Path for save/load data.
+        /// </summary>
+        private const string path = "Words.bin";
+
+
         /// <summary>
         /// Add a word.
         /// </summary>
@@ -35,18 +40,19 @@ namespace EnglishWords.BL.Controller
             else
             {
                 _words.Add(word);
+                SaveBin(path, _words);
             }
         }
 
 
         /// <summary>
-        /// Get/set the word by id.
+        /// Get the word by id.
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Word.</returns>
         public Word GetWord(int id)
         {
-            if (id < Count) return _words[id];
+            if (id < count) return _words[id];
             else throw new ArgumentOutOfRangeException(nameof(id));
         }
 
@@ -93,11 +99,8 @@ namespace EnglishWords.BL.Controller
                  GetInfoAboutWords(Word word, string translate)
         {
             var simpleUkWord = word.UaWord.Replace(" ", "").ToLower();
-            
             var simpleTranslate = translate.Replace(" ", "").ToLower();
-            
             var countCorrectLet = simpleUkWord.Count();
-            
             var countTranslateLet = simpleTranslate.Count();
 
             return (simpleUkWord, simpleTranslate, countTranslateLet, countCorrectLet);
@@ -121,12 +124,32 @@ namespace EnglishWords.BL.Controller
             _listErrorWords.Add(word);
             return false;
         }
-
         
+
         /// <summary>
         /// Get the incorrect words.
         /// </summary>
         /// <returns></returns>
         public List<Word> GetInCorrectWords() => _listErrorWords;
+
+
+        /// <summary>
+        /// Is serializable data available? 
+        /// </summary>
+        /// <returns>Bool.</returns>
+        public bool CheckDataAvailable()
+        {
+            List<Word> data = LoadBin<Word>(path);
+            
+            if (data != null) return true;
+            else return false;
+        }
+
+
+        /// <summary>
+        /// Load words.
+        /// </summary>
+        /// <returns></returns>
+        public int LoadWords() { _words = LoadBin<Word>(path); return count; }
     }
 }
