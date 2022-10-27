@@ -16,8 +16,8 @@ namespace EnglishWords.BL.Controller.Tests
         {
             // Arrange
             var rnd = new Random();
-            var uaWord = rnd.Next(0, 10000).ToString();
-            var enWord = rnd.Next(0, 10000).ToString();
+            var uaWord = rnd.Next().ToString();
+            var enWord = rnd.Next().ToString();
             
             var word = new Word(0, enWord, uaWord);
             var wordController = new WordController();

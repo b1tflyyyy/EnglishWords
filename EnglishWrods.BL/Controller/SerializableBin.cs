@@ -21,12 +21,12 @@ namespace EnglishWords.BL.Controller
 
             using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {
+                #pragma warning disable SYSLIB0011
                 if (fs.Length > 0 && formatter.Deserialize(fs) is List<T> data)
                     return data;
                 else
-                    #pragma warning disable CS8603 // Possible null reference return.
+                #pragma warning disable CS8603 // Possible null reference return.
                     return null;
-                    #pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
@@ -43,6 +43,7 @@ namespace EnglishWords.BL.Controller
 
             using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {
+                #pragma warning disable SYSLIB0011
                 formatter.Serialize(fs, data);
             }
         }

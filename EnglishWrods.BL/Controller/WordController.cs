@@ -68,7 +68,8 @@ namespace EnglishWords.BL.Controller
             var dataWords = GetInfoAboutWords(word, translate);
 
             if (dataWords.countCorrectLet > dataWords.countTranslateLet 
-                || dataWords.countTranslateLet == 0) return PlusInCorrectAnswer(word);
+                || dataWords.countTranslateLet == 0) 
+                return PlusInCorrectAnswer(word);
 
             else
             {

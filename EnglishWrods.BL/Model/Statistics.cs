@@ -13,27 +13,27 @@ namespace EnglishWords.BL.Model
         /// <summary>
         /// Amount the correct answers.
         /// </summary>
-        public int CountCorrectAnswer { get; set; } = 0;
+        public int CountCorrectAnswer { get; private set; } = 0;
 
         /// <summary>
         /// Amount the incorrect answers.
         /// </summary>
-        public int CountInCorrectAnswer { get; set; } = 0;
+        public int CountInCorrectAnswer { get; private set; } = 0;
 
         /// <summary>
         /// Percentage of correct answers.
         /// </summary>
-        public int PercentageCorrectAnswer { get; set; } = 0;
+        public int PercentageCorrectAnswer { get; private set; } = 0;
 
         /// <summary>
         /// Percentage of incorrect answers.
         /// </summary>
-        public int PercentageInCorrectAnswer { get; set; } = 0;
+        public int PercentageInCorrectAnswer { get; private set; } = 0;
 
         /// <summary>
         /// Amount all answers.
         /// </summary>
-        public int CountAllAnswers { get; private set; } = 0;
+        internal int CountAllAnswers { get; private set; } = 0;
 
         #endregion
 
