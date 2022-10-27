@@ -184,7 +184,7 @@
     <value>натисніть 1, якщо ви не хочете завантажити данні</value>
   </data>
   <data name="RepeatOrExit" xml:space="preserve">
-    <value>Якщо ви бажаєте знов повторити слова, введіть repeat, інакше натисніть Enter</value>
+    <value>Якщо ви бажаєте знов повторити слова, натисніть Enter, інакше натисніть будь яку клавішу.</value>
   </data>
   <data name="ToPayAttentionWords" xml:space="preserve">
     <value>Зверніть увагу на ці слова:</value>

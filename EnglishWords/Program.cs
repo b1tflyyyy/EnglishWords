@@ -13,14 +13,12 @@ namespace View.CMD
         private static readonly CultureInfo culture = CultureInfo.CreateSpecificCulture("uk-ua");
         private static readonly ResourceManager? resourceManager = new ResourceManager("View.CMD.Languages.Messages", typeof(Program).Assembly);
         
-
         private static void Main(string[] args)
         {
             LoadConsoleConfig();
 
             Console.WriteLine($"{RM("Hello")} \n{RM("ChooseLearn")} \n\t{RM("Words")} \n\t{RM("IrregularVerbs")}");
             var mode = ChooseMode();
-
             
             var wordController = new WordController();
             var statisticsController = new StatisticsController();
@@ -29,13 +27,13 @@ namespace View.CMD
        
 
             #region If mode learn words
-
             if (mode == "words")
             {
                 var dataIsAvailable = wordController.CheckDataAvailable();
                 var needWriteWords = false;
                 var countWords = 0;
 
+                // Load data or enter new words.
                 if (dataIsAvailable)
                 {
                     Console.WriteLine($"{RM("DoYouWantLoadWords")} \n\t{RM("LoadWords")} \n\t{RM("NoLoadWords")}");
@@ -48,14 +46,14 @@ namespace View.CMD
 
                     Console.Clear();
                 }
-                    
+                
+                // Enter new words.
                 if (!dataIsAvailable || needWriteWords)
                 {
                     Console.WriteLine($"{RM("EnterAmountWords")}");
                     countWords = TryInt($"{RM("ErrorOrCountWordsOverflow")}", 500);
 
                     Console.Clear();
-
 
                     for (int i = 0; i < countWords; i++)
                     {
@@ -75,6 +73,7 @@ namespace View.CMD
                     Console.WriteLine();
                 }
 
+                // Check words.
                 while (true)
                 {
                     for (int i = 0; i < countWords; i++)
@@ -101,28 +100,28 @@ namespace View.CMD
                         Console.Clear();
                     }
 
-                    // TODO: redo output statistics
                     var stat = statisticsController.GetStatistics(statistics);
                     statistics.ClearStat();
 
-                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");                    
-                    Console.WriteLine($"\n{RM("ToPayAttentionWords")} ");
+                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");
                     
-                    foreach(Word word in wordController.GetInCorrectWords())
+                    #pragma warning disable CS8602 // stat may be null here.
+                    if(stat.PercentageCorrectAnswer != 100)
                     {
-                        Console.WriteLine($"\n{RM("WordInEnglishLanguage")} {word.EnWord} \n{RM("TranslateWord")} {word.UaWord}");
+                        Console.WriteLine($"\n{RM("ToPayAttentionWords")} ");
+                        foreach (var word in wordController.GetInCorrectWords())
+                        {
+                            Console.WriteLine($"\n{RM("WordInEnglishLanguage")} {word.EnWord} \n{RM("TranslateWord")} {word.UaWord}");
+                        }
                     }
 
-
-                    // TODO: redo exit or repeat
                     Console.WriteLine($"\n{RM("RepeatOrExit")}");
-                    var input = Console.ReadLine();
+                    var key = Console.ReadKey();
 
-                    if (input == "repeat") Console.Clear();
+                    if (ConsoleKey.Enter == key.Key) Console.Clear();
                     else break;
                 }
             }
-
             #endregion
             
 

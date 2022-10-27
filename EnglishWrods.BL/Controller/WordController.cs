@@ -141,9 +141,7 @@ namespace EnglishWords.BL.Controller
         public bool CheckDataAvailable()
         {
             List<Word> data = LoadBin<Word>(path);
-            
-            if (data != null) return true;
-            else return false;
+            return data != null ? true : false;
         }
 
 

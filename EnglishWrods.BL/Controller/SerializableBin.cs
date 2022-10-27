@@ -24,8 +24,8 @@ namespace EnglishWords.BL.Controller
                 #pragma warning disable SYSLIB0011
                 if (fs.Length > 0 && formatter.Deserialize(fs) is List<T> data)
                     return data;
-                else
                 #pragma warning disable CS8603 // Possible null reference return.
+                else
                     return null;
             }
         }

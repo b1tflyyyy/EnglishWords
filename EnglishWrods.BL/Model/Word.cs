@@ -12,20 +12,21 @@ namespace EnglishWords.BL.Model
         /// <summary>
         /// Id word.
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; }
 
         /// <summary>
         /// Word in Ukrainian.
         /// </summary>
-        public string? UaWord { get; set; }
+        public string UaWord { get; }
 
         /// <summary>
         /// Word in English.
         /// </summary>
-        public string? EnWord { get; set; }
+        public string EnWord { get; }
 
         #endregion
 
+        #pragma warning disable CS8618
         public Word() { }
 
         /// <summary>
