@@ -1,16 +1,12 @@
-﻿using EnglishWords.BL.Services.DataHandler;
+﻿using EnglishWords.BL.Services.SerializableData;
 using System;
 
-namespace EnglishWords.BL.Controller
-{
-    /// <summary>
-    /// Base controller.
-    /// </summary>
-    public abstract class ControllerBase
-    {
-        #region Data handler
 
-        private readonly IDataHandler dataHandler = new DataHandler();
+namespace EnglishWords.BL.Services.DataHandler
+{
+    public class DataHandler : IDataHandler
+    {
+        private readonly ISerializableData dataBin = new SerializableBin();
 
         /// <summary>
         /// Add data.
@@ -19,8 +15,15 @@ namespace EnglishWords.BL.Controller
         /// <param name="data"></param>
         /// <param name="_list"></param>
         /// <param name="path"></param>
-        internal void AddData<T>(T data, List<T> _list, string path) where T : class =>
-             dataHandler.AddData(data, _list, path);
+        public void AddData<T>(T data, List<T> _list, string path) where T : class
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            else
+            {
+                _list.Add(data);
+                dataBin.Save(path, _list);
+            }
+        }
 
         /// <summary>
         /// Check the availability of data.
@@ -28,8 +31,11 @@ namespace EnglishWords.BL.Controller
         /// <typeparam name="T"></typeparam>
         /// <param name="path"></param>
         /// <returns></returns>
-        internal bool CheckDataAvailable<T>(string path) where T : class =>
-            dataHandler.CheckDataAvailable<T>(path);
+        public bool CheckDataAvailable<T>(string path) where T : class
+        {
+            List<T> data = dataBin.Load<T>(path);
+            return data != null;
+        }
 
         /// <summary>
         /// Get the data.
@@ -39,8 +45,11 @@ namespace EnglishWords.BL.Controller
         /// <param name="count"></param>
         /// <param name="_list"></param>
         /// <returns></returns>
-        internal T GetData<T>(int id, int count, List<T> _list) where T : class =>
-            dataHandler.GetData(id, count, _list);
+        public T GetData<T>(int id, int count, List<T> _list) where T : class
+        {
+            if (id < count) return _list[id];
+            else throw new ArgumentOutOfRangeException(nameof(id));
+        }
 
         /// <summary>
         /// Get the incorrect answers.
@@ -48,22 +57,25 @@ namespace EnglishWords.BL.Controller
         /// <typeparam name="T"></typeparam>
         /// <param name="_listIncorrectAnswers"></param>
         /// <returns></returns>
-        internal List<T> GetIncorrectAnswers<T>(List<T> _listIncorrectAnswers) where T : class =>
-            dataHandler.GetIncorrectAnswers(_listIncorrectAnswers);
-        
+        public List<T> GetIncorrectAnswers<T>(List<T> _listIncorrectAnswers) where T : class => 
+            _listIncorrectAnswers;
+
         /// <summary>
         /// Add the correct answer.
         /// </summary>
         /// <returns>Bool.</returns>
-        internal bool PlusCorrectAnswer() => dataHandler.PlusCorrectAnswer();
+        public bool PlusCorrectAnswer() => true;
 
         /// <summary>
         /// Add the incorrect answer.
         /// </summary>
         /// <param name="word">Word.</param>
         /// <returns>Bool.</returns>
-        internal bool PlusIncorrectAnswer<T>(T errorAnswer, List<T> _errorAnswers) where T : class =>
-            dataHandler.PlusIncorrectAnswer(errorAnswer, _errorAnswers);
+        public bool PlusIncorrectAnswer<T>(T errorAnswer, List<T> _errorAnswers) where T : class
+        {
+            _errorAnswers.Add(errorAnswer);
+            return false;
+        }
 
         /// <summary>
         /// Load data.
@@ -71,10 +83,7 @@ namespace EnglishWords.BL.Controller
         /// <typeparam name="T"></typeparam>
         /// <param name="path"></param>
         /// <returns></returns>
-        internal List<T> LoadData<T>(string path) where T : class =>
-            dataHandler.LoadData<T>(path);
-
-
-        #endregion
+        public List<T> LoadData<T>(string path) where T : class =>
+            dataBin.Load<T>(path);
     }
 }

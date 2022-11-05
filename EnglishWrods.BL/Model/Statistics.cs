@@ -18,7 +18,7 @@ namespace EnglishWords.BL.Model
         /// <summary>
         /// Amount the incorrect answers.
         /// </summary>
-        public int CountInCorrectAnswer { get; private set; } = 0;
+        public int CountIncorrectAnswer { get; private set; } = 0;
 
         /// <summary>
         /// Percentage of correct answers.
@@ -28,7 +28,7 @@ namespace EnglishWords.BL.Model
         /// <summary>
         /// Percentage of incorrect answers.
         /// </summary>
-        public int PercentageInCorrectAnswer { get; private set; } = 0;
+        public int PercentageIncorrectAnswer { get; private set; } = 0;
 
         /// <summary>
         /// Amount all answers.
@@ -68,9 +68,9 @@ namespace EnglishWords.BL.Model
             #endregion
 
             CountCorrectAnswer = countCorrectAnswer;
-            CountInCorrectAnswer = countInCorrectAnswer;
+            CountIncorrectAnswer = countInCorrectAnswer;
             PercentageCorrectAnswer = persentageCorrectAnswer;
-            PercentageInCorrectAnswer = persentageInCorrectAnswer;
+            PercentageIncorrectAnswer = persentageInCorrectAnswer;
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace EnglishWords.BL.Model
         public void AddStat(bool result)
         {
             if (result) CountCorrectAnswer++;
-            else CountInCorrectAnswer++;
+            else CountIncorrectAnswer++;
             
-            CountAllAnswers = CountCorrectAnswer + CountInCorrectAnswer;
+            CountAllAnswers = CountCorrectAnswer + CountIncorrectAnswer;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace EnglishWords.BL.Model
         public void ClearStat()
         {
             CountCorrectAnswer = 0;
-            CountInCorrectAnswer = 0;
+            CountIncorrectAnswer = 0;
             CountAllAnswers = 0;
         }
     }

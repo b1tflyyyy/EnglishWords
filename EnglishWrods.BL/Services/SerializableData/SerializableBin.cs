@@ -2,12 +2,12 @@
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace EnglishWords.BL.Controller
+namespace EnglishWords.BL.Services.SerializableData
 {
     /// <summary>
     /// Bin data serializer.
     /// </summary>
-    public class SerializableBin : ISerializableDataSaver
+    public class SerializableBin : ISerializableData
     {
         /// <summary>
         /// Load any data.

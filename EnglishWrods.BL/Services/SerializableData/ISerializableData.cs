@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace EnglishWords.BL.Model
+namespace EnglishWords.BL.Services.SerializableData
 {
     /// <summary>
     /// Save/load data.
     /// </summary>
-    internal interface ISerializableDataSaver
+    internal interface ISerializableData
     {
         /// <summary>
         /// Save data.

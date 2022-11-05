@@ -7,6 +7,7 @@ namespace EnglishWords.BL.Controller
     /// Logic of words.
     /// </summary>
     [Serializable] public class WordController : ControllerBase
+    // TODO: think about IEnumerable
     {
         /// <summary>
         /// List of words in which there was an error.
@@ -34,15 +35,7 @@ namespace EnglishWords.BL.Controller
         /// </summary>
         /// <param name="word">Word.</param>
         /// <exception cref="ArgumentNullException">Null</exception>
-        public void Add(Word word)
-        {
-            if(word == null) throw new ArgumentNullException(nameof(word));
-            else
-            {
-                _words.Add(word);
-                SaveBin(path, _words);
-            }
-        }
+        public void AddWord(Word word) => AddData(word, _words, path);
 
 
         /// <summary>
@@ -50,11 +43,7 @@ namespace EnglishWords.BL.Controller
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Word.</returns>
-        public Word GetWord(int id)
-        {
-            if (id < count) return _words[id];
-            else throw new ArgumentOutOfRangeException(nameof(id));
-        }
+        public Word GetWord(int id) => GetData(id, count, _words);
 
 
         /// <summary>
@@ -69,7 +58,7 @@ namespace EnglishWords.BL.Controller
 
             if (dataWords.countCorrectLet > dataWords.countTranslateLet 
                 || dataWords.countTranslateLet == 0) 
-                return PlusInCorrectAnswer(word);
+                return PlusIncorrectAnswer(word, _listErrorWords);
 
             else
             {
@@ -82,7 +71,7 @@ namespace EnglishWords.BL.Controller
                 int interests = 100 * sameLet / dataWords.countCorrectLet;
 
                 if (interests >= 60) return PlusCorrectAnswer();
-                else return PlusInCorrectAnswer(word);
+                else return PlusIncorrectAnswer(word, _listErrorWords);
             }
         }
 
@@ -107,48 +96,25 @@ namespace EnglishWords.BL.Controller
             return (simpleUkWord, simpleTranslate, countTranslateLet, countCorrectLet);
         }
 
-        
-        /// <summary>
-        /// Add the correct answer.
-        /// </summary>
-        /// <returns>Bool.</returns>
-        private bool PlusCorrectAnswer() => true;
-
-        
-        /// <summary>
-        /// Add the incorrect answer.
-        /// </summary>
-        /// <param name="word">Word.</param>
-        /// <returns>Bool.</returns>
-        private bool PlusInCorrectAnswer(Word word) 
-        { 
-            _listErrorWords.Add(word);
-            return false;
-        }
-        
 
         /// <summary>
         /// Get the incorrect words.
         /// </summary>
         /// <returns></returns>
-        public List<Word> GetInCorrectWords() => _listErrorWords;
+        public List<Word> GetIncorrectWords() => GetIncorrectAnswers(_listErrorWords);
 
 
         /// <summary>
         /// Is serializable data available? 
         /// </summary>
         /// <returns>Bool.</returns>
-        public bool CheckDataAvailable()
-        {
-            List<Word> data = LoadBin<Word>(path);
-            return data != null ? true : false;
-        }
+        public bool CheckDataAvailable() => CheckDataAvailable<Word>(path);
 
 
         /// <summary>
         /// Load words.
         /// </summary>
         /// <returns></returns>
-        public int LoadWords() { _words = LoadBin<Word>(path); return count; }
+        public int LoadWords() { _words = LoadData<Word>(path); return count; }
     }
 }

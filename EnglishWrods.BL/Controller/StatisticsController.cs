@@ -16,12 +16,12 @@ namespace EnglishWords.BL.Controller
         public Statistics GetStatistics(Statistics statistics)
         {
             int perecentageCorrectAnswer = statistics.CountCorrectAnswer * 100 / statistics.CountAllAnswers;
-            int perecentageInCorrectAnswer = 100 - perecentageCorrectAnswer;
+            int perecentageIncorrectAnswer = 100 - perecentageCorrectAnswer;
 
             var readyStatistics = new Statistics(statistics.CountCorrectAnswer,
-                                                 statistics.CountInCorrectAnswer,
+                                                 statistics.CountIncorrectAnswer,
                                                  perecentageCorrectAnswer,
-                                                 perecentageInCorrectAnswer);
+                                                 perecentageIncorrectAnswer);
 
             return readyStatistics;
         }

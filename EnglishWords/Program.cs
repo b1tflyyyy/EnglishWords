@@ -64,7 +64,7 @@ namespace View.CMD
                         var uaWord = TryString();
 
                         var word = new Word(i, enWord, uaWord);
-                        wordController.Add(word);
+                        wordController.AddWord(word);
 
                         Console.Clear();
                     }
@@ -103,13 +103,13 @@ namespace View.CMD
                     var stat = statisticsController.GetStatistics(statistics);
                     statistics.ClearStat();
 
-                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountInCorrectAnswer} - {stat?.PercentageInCorrectAnswer}%");
+                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnWords")} \n\n{RM("AmountCorrectTranslateWord")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectTranslateWord")} {stat?.CountIncorrectAnswer} - {stat?.PercentageIncorrectAnswer}%");
                     
                     #pragma warning disable CS8602 // stat may be null here.
                     if(stat.PercentageCorrectAnswer != 100)
                     {
                         Console.WriteLine($"\n{RM("ToPayAttentionWords")} ");
-                        foreach (var word in wordController.GetInCorrectWords())
+                        foreach (var word in wordController.GetIncorrectWords())
                         {
                             Console.WriteLine($"\n{RM("WordInEnglishLanguage")} {word.EnWord} \n{RM("TranslateWord")} {word.UaWord}");
                         }
@@ -123,14 +123,17 @@ namespace View.CMD
                 }
             }
             #endregion
-            
 
+            #region If mode learn verbs
             else
             {
 
             }
+            #endregion
         }
 
+
+        // TODO: create specific class for console IO helper.
         #region Console IO helper 
 
         /// <summary>

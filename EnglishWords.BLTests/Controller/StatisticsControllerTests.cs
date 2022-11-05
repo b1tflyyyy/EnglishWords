@@ -14,8 +14,8 @@ namespace EnglishWords.BL.Controller.Tests
             var rnd = new Random();
 
             var countCorrectAnswers = rnd.Next(0, 1000000000);
-            var countInCorrectAnswers = rnd.Next(0, 1000000000);
-            var countAllAnswers = countCorrectAnswers + countInCorrectAnswers;
+            var countIncorrectAnswers = rnd.Next(0, 1000000000);
+            var countAllAnswers = countCorrectAnswers + countIncorrectAnswers;
 
             int percentageCorrectAnswer = countCorrectAnswers * 100 / countAllAnswers;
             int percentageInCorrectAnswer = 100 - percentageCorrectAnswer;
@@ -28,7 +28,7 @@ namespace EnglishWords.BL.Controller.Tests
             for (var i = 0; i < countCorrectAnswers; i++)
                 statistics.AddStat(true);
 
-            for (var i = 0; i < countInCorrectAnswers; i++)
+            for (var i = 0; i < countIncorrectAnswers; i++)
                 statistics.AddStat(false);
 
             // Assert
@@ -37,9 +37,9 @@ namespace EnglishWords.BL.Controller.Tests
             statistics.ClearStat();
 
             Assert.AreEqual(stat.CountCorrectAnswer, countCorrectAnswers);
-            Assert.AreEqual(stat.CountInCorrectAnswer, countInCorrectAnswers);
+            Assert.AreEqual(stat.CountIncorrectAnswer, countIncorrectAnswers);
             Assert.AreEqual(stat.PercentageCorrectAnswer, percentageCorrectAnswer);
-            Assert.AreEqual(stat.PercentageInCorrectAnswer, percentageInCorrectAnswer);
+            Assert.AreEqual(stat.PercentageIncorrectAnswer, percentageInCorrectAnswer);
         }
     }
 }

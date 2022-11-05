@@ -23,7 +23,7 @@ namespace EnglishWords.BL.Controller.Tests
             var wordController = new WordController();
 
             // Act
-            wordController.Add(word);
+            wordController.AddWord(word);
 
             // Assert
             Assert.AreEqual(word, wordController.GetWord(0));
@@ -44,7 +44,7 @@ namespace EnglishWords.BL.Controller.Tests
             var wordController = new WordController();
 
             // Act
-            wordController.Add(word);
+            wordController.AddWord(word);
 
             // Assert
             var result = wordController.CompareWords(word, uaWord);
@@ -67,11 +67,11 @@ namespace EnglishWords.BL.Controller.Tests
             var wordController = new WordController();
 
             // Act 
-            wordController.Add(word);
+            wordController.AddWord(word);
             wordController.CompareWords(word, translate);
 
             // Assert
-            var incorrectWord = wordController.GetInCorrectWords();
+            var incorrectWord = wordController.GetIncorrectWords();
             
             Assert.AreEqual(uaWord, incorrectWord[0].UaWord);
         }
