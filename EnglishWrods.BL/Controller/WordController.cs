@@ -7,7 +7,6 @@ namespace EnglishWords.BL.Controller
     /// Logic of words.
     /// </summary>
     [Serializable] public class WordController : ControllerBase
-    // TODO: think about IEnumerable
     {
         /// <summary>
         /// List of words in which there was an error.
@@ -52,48 +51,21 @@ namespace EnglishWords.BL.Controller
         /// <param name="word">Word.</param>
         /// <param name="translate">Translate.</param>
         /// <returns>Bool.</returns>
-        public bool CompareWords(Word word, string translate)
+        public bool CompareWords(Word word, string inputTranslate)
         {
-            var dataWords = GetInfoAboutWords(word, translate);
+            var wordSpecificData = GetSpecificInfoAboutData(word.UaWord);
+            var inputTranslateSpecificData = GetSpecificInfoAboutData(inputTranslate);
 
-            if (dataWords.countCorrectLet > dataWords.countTranslateLet 
-                || dataWords.countTranslateLet == 0) 
-                return PlusIncorrectAnswer(word, _listErrorWords);
+            var result = CompareData(wordSpecificData, inputTranslateSpecificData);
 
+            if (result)
+            {
+                return PlusCorrectAnswer();
+            }
             else
             {
-                var sameLet = 0;
-
-                for (int i = 0; i < dataWords.countCorrectLet; i++)
-                    if (dataWords.simpleUkWord[i] == dataWords.simpleTranslate[i])
-                        sameLet++;
-
-                int interests = 100 * sameLet / dataWords.countCorrectLet;
-
-                if (interests >= 60) return PlusCorrectAnswer();
-                else return PlusIncorrectAnswer(word, _listErrorWords);
+                return PlusIncorrectAnswer(word, _listErrorWords);
             }
-        }
-
-
-        /// <summary>
-        /// Get more information about words.
-        /// </summary>
-        /// <param name="word">Word.</param>
-        /// <param name="translate">Translate.</param>
-        /// <returns></returns>
-        private (string simpleUkWord, 
-                 string simpleTranslate,
-                 int countTranslateLet,
-                 int countCorrectLet) 
-                 GetInfoAboutWords(Word word, string translate)
-        {
-            var simpleUkWord = word.UaWord.Replace(" ", "").ToLower();
-            var simpleTranslate = translate.Replace(" ", "").ToLower();
-            var countCorrectLet = simpleUkWord.Count();
-            var countTranslateLet = simpleTranslate.Count();
-
-            return (simpleUkWord, simpleTranslate, countTranslateLet, countCorrectLet);
         }
 
 

@@ -1,4 +1,5 @@
-﻿using EnglishWords.BL.Services.DataHandler;
+﻿using EnglishWords.BL.Model;
+using EnglishWords.BL.Services.DataHandler;
 using System;
 
 namespace EnglishWords.BL.Controller
@@ -74,6 +75,23 @@ namespace EnglishWords.BL.Controller
         internal List<T> LoadData<T>(string path) where T : class =>
             dataHandler.LoadData<T>(path);
 
+        /// <summary>
+        /// Compare words.
+        /// </summary>
+        /// <param name="word">Word.</param>
+        /// <param name="translate">Translate.</param>
+        /// <returns>Bool.</returns>
+        internal bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData) =>
+            dataHandler.CompareData(data, inputData);
+
+        /// <summary>
+        /// Get more information about words.
+        /// </summary>
+        /// <param name="word">Word.</param>
+        /// <param name="translate">Translate.</param>
+        /// <returns></returns>
+        internal SpecificInfoAboutData GetSpecificInfoAboutData(string data) =>
+            dataHandler.GetSpecificInfoAboutData(data);
 
         #endregion
     }
