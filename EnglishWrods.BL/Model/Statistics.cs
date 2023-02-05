@@ -58,12 +58,9 @@ namespace EnglishWords.BL.Model
             #region Check data
             
             if (countCorrectAnswer < 0) throw new ArgumentNullException(nameof(countCorrectAnswer));
-
             if (countInCorrectAnswer < 0) throw new ArgumentNullException(nameof(countInCorrectAnswer));
-
             if (persentageCorrectAnswer < 0) throw new ArgumentNullException(nameof(persentageCorrectAnswer));
-
-            if(persentageInCorrectAnswer < 0) throw new ArgumentNullException(nameof(persentageInCorrectAnswer));
+            if (persentageInCorrectAnswer < 0) throw new ArgumentNullException(nameof(persentageInCorrectAnswer));
             
             #endregion
 

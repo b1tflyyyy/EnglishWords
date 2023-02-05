@@ -21,22 +21,23 @@ namespace View.CMD
             var mode = ChooseMode();
             
             var wordController = new WordController();
-            var statisticsController = new StatisticsController();
+            var verbController = new VerbController();
 
+            var statisticsController = new StatisticsController();
             var statistics = new Statistics();
        
 
             #region If mode learn words
             if (mode == "words")
             {
-                var dataIsAvailable = wordController.CheckDataAvailable();
+                var dataIsAvailable = wordController.CheckWordAvailable();
                 var needWriteWords = false;
                 var countWords = 0;
 
                 // Load data or enter new words.
                 if (dataIsAvailable)
                 {
-                    Console.WriteLine($"{RM("DoYouWantLoadWords")} \n\t{RM("LoadWords")} \n\t{RM("NoLoadWords")}");
+                    Console.WriteLine($"{RM("DoYouWantLoadWords")} \n\t{RM("LoadData")} \n\t{RM("NoLoadData")}");
                     var input = TryInt($"{RM("InputError")} \n{RM("TryAgain")}", 1);
 
                     if (input == 0)
@@ -69,7 +70,7 @@ namespace View.CMD
                         Console.Clear();
                     }
 
-                    Console.WriteLine($"{RM("EndEnterWord")} \n{RM("GoLearn")}");
+                    Console.WriteLine($"{RM("EndEnterWords")} \n{RM("GoLearn")}");
                     Console.WriteLine();
                 }
 
@@ -127,7 +128,60 @@ namespace View.CMD
             #region If mode learn verbs
             else
             {
+                var dataIsAvailable = verbController.CheckVerbAvailable();
+                var needWriteVerbs = false;
+                var countVerbs = 0;
 
+                if(dataIsAvailable)
+                {
+                    // Console.WriteLine("Чи бажаєте ви завантажити неправильні дієслова? \n\t0 - так \n\t1 - ні");
+                    Console.WriteLine($"{RM("DoYouWantLoadVerbs")} \n\t{RM("LoadData")} \n\t{RM("NoLoadData")}");
+
+                    var input = TryInt($"{RM("InputError")} \n{RM("TryAgain")}", 1);
+                    
+                    if (input == 0)
+                        countVerbs = verbController.LoadVerbs();
+                    else
+                        needWriteVerbs = true;
+
+                    Console.Clear();
+                }
+
+                if (!dataIsAvailable || needWriteVerbs)
+                {
+                    Console.WriteLine($"{RM("EnterAmountVerbs")}");
+                    countVerbs = TryInt($"{RM("ErrorOrCountWordsOverflow")}", 500);
+
+                    Console.Clear();
+
+                    for (int i = 0; i < countVerbs; i++)
+                    {
+                        Console.WriteLine($"{RM("EnterFirstVerbForm")}");
+                        var firstForm = Console.ReadLine();
+
+                        Console.WriteLine($"{RM("EnterSecondVerbForm")}");
+                        var secondForm = Console.ReadLine();
+
+                        Console.WriteLine($"{RM("EnterThirdVerbForm")}");
+                        var thirdForm = Console.ReadLine();
+
+                        var verb = new Verb(i, firstForm, secondForm, thirdForm);
+                        verbController.AddVerb(verb);
+
+                        Console.Clear();
+                    }
+
+                    Console.WriteLine($"{RM("EndEnterVerbs")} \n{RM("GoLearn")}");
+                    Console.WriteLine();
+                }
+
+                // for check ----------->
+                for(int i = 0; i < countVerbs; i++)
+                {
+                    var verb = verbController.GetVerb(i);
+
+                    Console.WriteLine($"{verb.Id}, {verb.FirstForm}, {verb.SecondForm}, {verb.ThirdForm}");
+                }
             }
             #endregion
         }

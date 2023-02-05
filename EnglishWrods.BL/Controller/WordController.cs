@@ -26,7 +26,7 @@ namespace EnglishWords.BL.Controller
         /// <summary>
         /// Path for save/load data.
         /// </summary>
-        private const string path = "Words.bin";
+        private const string WORD_PATH = "Words.bin";
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace EnglishWords.BL.Controller
         /// </summary>
         /// <param name="word">Word.</param>
         /// <exception cref="ArgumentNullException">Null</exception>
-        public void AddWord(Word word) => AddData(word, _words, path);
+        public void AddWord(Word word) => AddData(word, _words, WORD_PATH);
 
 
         /// <summary>
@@ -80,13 +80,13 @@ namespace EnglishWords.BL.Controller
         /// Is serializable data available? 
         /// </summary>
         /// <returns>Bool.</returns>
-        public bool CheckDataAvailable() => CheckDataAvailable<Word>(path);
+        public bool CheckWordAvailable() => CheckDataAvailable<Word>(WORD_PATH);
 
 
         /// <summary>
         /// Load words.
         /// </summary>
         /// <returns></returns>
-        public int LoadWords() { _words = LoadData<Word>(path); return count; }
+        public int LoadWords() { _words = LoadData<Word>(WORD_PATH); return count; }
     }
 }

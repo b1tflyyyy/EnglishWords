@@ -129,20 +129,38 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>Вірно! Так тримати!</value>
   </data>
+  <data name="DoYouWantLoadVerbs" xml:space="preserve">
+    <value>Чи бажаєте ви завантажити неправильні дієслова?</value>
+  </data>
   <data name="DoYouWantLoadWords" xml:space="preserve">
     <value>У вас є збережені слова, можливо ви хочете завантажити та повторити їх?</value>
   </data>
-  <data name="EndEnterWord" xml:space="preserve">
+  <data name="EndEnterVerbs" xml:space="preserve">
+    <value>Вітаю! Ви завершили ввід дієслів :)</value>
+  </data>
+  <data name="EndEnterWords" xml:space="preserve">
     <value>Вітаю! Ви завершили ввід слів :)</value>
   </data>
   <data name="EndLearnWords" xml:space="preserve">
     <value>Ви завершили вивчення слів з такими результатами:</value>
+  </data>
+  <data name="EnterAmountVerbs" xml:space="preserve">
+    <value>Введіть кількість дієслів, які ви хочете вивчити.</value>
   </data>
   <data name="EnterAmountWords" xml:space="preserve">
     <value>Введіть кількість слів, які ви хочете вивчити.</value>
   </data>
   <data name="EnterEnglishWord" xml:space="preserve">
     <value>Введіть слово на англійській мові:</value>
+  </data>
+  <data name="EnterFirstVerbForm" xml:space="preserve">
+    <value>Введіть першу форму дієслова:</value>
+  </data>
+  <data name="EnterSecondVerbForm" xml:space="preserve">
+    <value>Введіть другу форму дієслова:</value>
+  </data>
+  <data name="EnterThirdVerbForm" xml:space="preserve">
+    <value>Введіть третю форму дієслова:</value>
   </data>
   <data name="EnterTranslate" xml:space="preserve">
     <value>Введіть переклад:</value>
@@ -177,14 +195,14 @@
   <data name="IrregularVerbs" xml:space="preserve">
     <value>verbs - вивчення неправильних дієслів</value>
   </data>
-  <data name="LoadWords" xml:space="preserve">
+  <data name="LoadData" xml:space="preserve">
     <value>натисніть 0, якщо ви хочете завантажити данні</value>
   </data>
-  <data name="NoLoadWords" xml:space="preserve">
+  <data name="NoLoadData" xml:space="preserve">
     <value>натисніть 1, якщо ви не хочете завантажити данні</value>
   </data>
   <data name="RepeatOrExit" xml:space="preserve">
-    <value>Якщо ви бажаєте знов повторити слова, натисніть Enter, інакше натисніть будь яку клавішу.</value>
+    <value>Якщо ви бажаєте знов повторити цей режим, натисніть Enter, інакше натисніть будь яку клавішу.</value>
   </data>
   <data name="ToPayAttentionWords" xml:space="preserve">
     <value>Зверніть увагу на ці слова:</value>

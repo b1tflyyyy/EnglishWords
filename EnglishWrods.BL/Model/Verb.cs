@@ -24,6 +24,12 @@ namespace EnglishWords.BL.Model
         {
             // TODO: Check input data
             #region Check input data
+
+            if (id < 0) throw new ArgumentException(nameof(id), "id < 0");
+            if(firstForm == null) throw new ArgumentNullException(nameof(firstForm));
+            if (secondForm == null) throw new ArgumentNullException(nameof(secondForm));
+            if(thirdForm == null) throw new ArgumentNullException(nameof(thirdForm));
+
             #endregion
             
             Id = id;
