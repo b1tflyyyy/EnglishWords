@@ -157,13 +157,13 @@ namespace View.CMD
                     for (int i = 0; i < countVerbs; i++)
                     {
                         Console.WriteLine($"{RM("EnterFirstVerbForm")}");
-                        var firstForm = Console.ReadLine();
+                        var firstForm = TryString();
 
                         Console.WriteLine($"{RM("EnterSecondVerbForm")}");
-                        var secondForm = Console.ReadLine();
+                        var secondForm = TryString();
 
                         Console.WriteLine($"{RM("EnterThirdVerbForm")}");
-                        var thirdForm = Console.ReadLine();
+                        var thirdForm = TryString();
 
                         var verb = new Verb(i, firstForm, secondForm, thirdForm);
                         verbController.AddVerb(verb);
@@ -175,12 +175,52 @@ namespace View.CMD
                     Console.WriteLine();
                 }
 
+                #region For check
                 // for check ----------->
-                for(int i = 0; i < countVerbs; i++)
-                {
-                    var verb = verbController.GetVerb(i);
+                //for (int i = 0; i < countVerbs; i++)
+                //{
+                //    var verb = verbController.GetVerb(i);
 
-                    Console.WriteLine($"{verb.Id}, {verb.FirstForm}, {verb.SecondForm}, {verb.ThirdForm}");
+                //    Console.WriteLine($"{verb.Id}, {verb.FirstForm}, {verb.SecondForm}, {verb.ThirdForm}");
+                //}
+                #endregion
+
+                // check verbs
+                while(true)
+                {
+                    for(int i = 0; i < countVerbs; i++)
+                    {
+                        var verb = verbController.GetVerb(i);
+
+                        Console.WriteLine("enter first verb form: ");
+                        var inputVerbFirstForm = TryString();
+
+                        Console.WriteLine("enter second verb form: ");
+                        var inputVerbSecondForm = TryString();
+
+                        Console.WriteLine("enter third verb form: ");
+                        var inputVerbThirdForm = TryString();
+
+                        var result = verbController.CompareVerbs(verb,
+                                                    inputVerbFirstForm,
+                                                    inputVerbSecondForm,
+                                                    inputVerbThirdForm);
+
+                        statistics.AddStat(result);
+
+                        if(result)
+                        {
+                            Console.WriteLine("correct");
+                            Delay(1500);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"IncorrectAnswer - {verb}");
+                            Delay(5500);
+                        }
+
+                        Console.Clear();
+                    }
                 }
             }
             #endregion

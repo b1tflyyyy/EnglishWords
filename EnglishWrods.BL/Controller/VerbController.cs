@@ -57,5 +57,24 @@ namespace EnglishWords.BL.Controller
         /// </summary>
         /// <returns></returns>
         public int LoadVerbs() { _verbs = LoadData<Verb>(VERB_PATH); return count; }
+
+        public bool CompareVerbs(Verb verb, 
+                                 string inputVerbFirstForm,
+                                 string inputVerbSecondForm,
+                                 string inputVerbThirdForm)
+        {
+            var resultVerbFirstForm = verb.FirstForm == inputVerbFirstForm;
+            var resultVerbSecondForm = verb.SecondForm == inputVerbSecondForm;
+            var resultVerbThirdForm = verb.ThirdForm == inputVerbThirdForm;
+
+            if(resultVerbFirstForm && resultVerbSecondForm && resultVerbThirdForm)
+            {
+                return PlusCorrectAnswer();
+            }
+            else
+            {
+                return PlusIncorrectAnswer(verb, _listErrorVerbs);
+            }
+        }
     }
 }

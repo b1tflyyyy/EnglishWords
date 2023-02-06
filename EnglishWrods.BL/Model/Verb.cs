@@ -37,5 +37,7 @@ namespace EnglishWords.BL.Model
             SecondForm = secondForm;
             ThirdForm = thirdForm;
         }
+
+        public override string ToString() => $"Id: {Id}, FirstForm: {FirstForm}, SecondForm: {SecondForm}, ThirdForm: {ThirdForm}";
     }
 }
