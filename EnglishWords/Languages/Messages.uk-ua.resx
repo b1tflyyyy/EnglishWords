@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AmountCorrectEnterVerbs" xml:space="preserve">
+    <value>Кількість правильно введених дієслів:</value>
+  </data>
   <data name="AmountCorrectTranslateWord" xml:space="preserve">
     <value>Кількість правильно перекладених слів:</value>
+  </data>
+  <data name="AmountIncorrectEnterVerbs" xml:space="preserve">
+    <value>Кількість неправильно введених дієслів:</value>
   </data>
   <data name="AmountIncorrectTranslateWord" xml:space="preserve">
     <value>Кількість неправильно перекладених слів:</value>
@@ -140,6 +146,9 @@
   </data>
   <data name="EndEnterWords" xml:space="preserve">
     <value>Вітаю! Ви завершили ввід слів :)</value>
+  </data>
+  <data name="EndLearnVerbs" xml:space="preserve">
+    <value>Ви завершили вивчення дієслів з такими результатами:</value>
   </data>
   <data name="EndLearnWords" xml:space="preserve">
     <value>Ви завершили вивчення слів з такими результатами:</value>
@@ -166,10 +175,13 @@
     <value>Введіть переклад:</value>
   </data>
   <data name="EnterTranslateWordLearn" xml:space="preserve">
-    <value>Введіть переклад слова</value>
+    <value>Введіть переклад слова:</value>
   </data>
   <data name="ErrorNullInput" xml:space="preserve">
     <value>Схоже ви не ввели нічого.</value>
+  </data>
+  <data name="ErrorOrCountVerbsOverflow" xml:space="preserve">
+    <value>Мабуть ви ввели не число, або перевищили ліміт дієслів(500).</value>
   </data>
   <data name="ErrorOrCountWordsOverflow" xml:space="preserve">
     <value>Мабуть ви ввели не число, або перевищили ліміт слів(500).</value>
@@ -203,6 +215,9 @@
   </data>
   <data name="RepeatOrExit" xml:space="preserve">
     <value>Якщо ви бажаєте знов повторити цей режим, натисніть Enter, інакше натисніть будь яку клавішу.</value>
+  </data>
+  <data name="ToPayAttentionVerbs" xml:space="preserve">
+    <value>Зверніть увагу на ці дієслова:</value>
   </data>
   <data name="ToPayAttentionWords" xml:space="preserve">
     <value>Зверніть увагу на ці слова:</value>

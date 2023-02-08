@@ -69,7 +69,7 @@ namespace EnglishWords.BL.Services.DataHandler
         /// <param name="firstaData"></param>
         /// <param name="secondData"></param>
         /// <returns></returns>
-        internal bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData);
+        // internal bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData);
 
         /// <summary>
         /// Get the specific info about words.
@@ -78,6 +78,6 @@ namespace EnglishWords.BL.Services.DataHandler
         /// <param name="data"></param>
         /// <param name="inputData"></param>
         /// <returns></returns>
-        internal SpecificInfoAboutData GetSpecificInfoAboutData(string data);
+        // internal SpecificInfoAboutData GetSpecificInfoAboutData(string data);
     }
 }

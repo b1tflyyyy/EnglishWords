@@ -81,8 +81,8 @@ namespace EnglishWords.BL.Controller
         /// <param name="word">Word.</param>
         /// <param name="translate">Translate.</param>
         /// <returns>Bool.</returns>
-        internal bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData) =>
-            dataHandler.CompareData(data, inputData);
+        // internal bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData) =>
+            // dataHandler.CompareData(data, inputData);
 
         /// <summary>
         /// Get more information about words.
@@ -90,8 +90,8 @@ namespace EnglishWords.BL.Controller
         /// <param name="word">Word.</param>
         /// <param name="translate">Translate.</param>
         /// <returns></returns>
-        internal SpecificInfoAboutData GetSpecificInfoAboutData(string data) =>
-            dataHandler.GetSpecificInfoAboutData(data);
+        //internal SpecificInfoAboutData GetSpecificInfoAboutData(string data) =>
+            //dataHandler.GetSpecificInfoAboutData(data);
 
         #endregion
     }

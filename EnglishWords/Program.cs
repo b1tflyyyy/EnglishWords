@@ -150,19 +150,19 @@ namespace View.CMD
                 if (!dataIsAvailable || needWriteVerbs)
                 {
                     Console.WriteLine($"{RM("EnterAmountVerbs")}");
-                    countVerbs = TryInt($"{RM("ErrorOrCountWordsOverflow")}", 500);
+                    countVerbs = TryInt($"{RM("ErrorOrCountVerbsOverflow")}", 500);
 
                     Console.Clear();
 
                     for (int i = 0; i < countVerbs; i++)
                     {
-                        Console.WriteLine($"{RM("EnterFirstVerbForm")}");
+                        Console.Write($"{RM("EnterFirstVerbForm")} ");
                         var firstForm = TryString();
 
-                        Console.WriteLine($"{RM("EnterSecondVerbForm")}");
+                        Console.Write($"{RM("EnterSecondVerbForm")} ");
                         var secondForm = TryString();
 
-                        Console.WriteLine($"{RM("EnterThirdVerbForm")}");
+                        Console.Write($"{RM("EnterThirdVerbForm")} ");
                         var thirdForm = TryString();
 
                         var verb = new Verb(i, firstForm, secondForm, thirdForm);
@@ -192,13 +192,13 @@ namespace View.CMD
                     {
                         var verb = verbController.GetVerb(i);
 
-                        Console.WriteLine("enter first verb form: ");
+                        Console.Write($"{RM("EnterFirstVerbForm")} ");
                         var inputVerbFirstForm = TryString();
 
-                        Console.WriteLine("enter second verb form: ");
+                        Console.Write($"{RM("EnterSecondVerbForm")} ");
                         var inputVerbSecondForm = TryString();
 
-                        Console.WriteLine("enter third verb form: ");
+                        Console.Write($"{RM("EnterThirdVerbForm")} ");
                         var inputVerbThirdForm = TryString();
 
                         var result = verbController.CompareVerbs(verb,
@@ -210,17 +210,38 @@ namespace View.CMD
 
                         if(result)
                         {
-                            Console.WriteLine("correct");
+                            Console.WriteLine($"{RM("CorrectAnswer")}");
                             Delay(1500);
                         }
                         else
                         {
-                            Console.WriteLine($"IncorrectAnswer - {verb}");
+                            Console.WriteLine($"{RM("IncorrectAnswer")}: {verb.FirstForm} -> {verb.SecondForm} -> {verb.ThirdForm}");
                             Delay(5500);
                         }
 
                         Console.Clear();
                     }
+
+                    var stat = statisticsController.GetStatistics(statistics);
+                    statistics.ClearStat();
+
+                    Console.WriteLine($"{RM("Greating")} \n{RM("EndLearnVerbs")} \n\n{RM("AmountCorrectEnterVerbs")} {stat?.CountCorrectAnswer} - {stat?.PercentageCorrectAnswer}%, \n{RM("AmountIncorrectEnterVerbs")} {stat?.CountIncorrectAnswer} - {stat?.PercentageIncorrectAnswer}%");
+
+                    #pragma warning disable CS8602 // stat may be null here.
+                    if (stat.PercentageCorrectAnswer != 100)
+                    {
+                        Console.WriteLine($"\n{RM("ToPayAttentionVerbs")} ");
+                        foreach (var verb in verbController.GetIncorrectVerbs())
+                        {
+                            Console.WriteLine($"\n{verb.FirstForm} -> {verb.SecondForm} -> {verb.ThirdForm}");
+                        }
+                    }
+
+                    Console.WriteLine($"\n{RM("RepeatOrExit")}");
+                    var key = Console.ReadKey();
+
+                    if (ConsoleKey.Enter == key.Key) Console.Clear();
+                    else break;
                 }
             }
             #endregion

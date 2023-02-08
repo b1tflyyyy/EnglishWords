@@ -88,5 +88,46 @@ namespace EnglishWords.BL.Controller
         /// </summary>
         /// <returns></returns>
         public int LoadWords() { _words = LoadData<Word>(WORD_PATH); return count; }
+
+        /// <summary>
+        /// Compare words.
+        /// </summary>
+        /// <param name="word">Word.</param>
+        /// <param name="translate">Translate.</param>
+        /// <returns>Bool.</returns>
+        private bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData)
+        {
+            if (data.CountDataLet > inputData.CountDataLet || inputData.CountDataLet == 0)
+                return false;
+            else
+            {
+                var sameLet = 0;
+
+                for (int i = 0; i < data.CountDataLet; i++)
+                    if (data.Data[i] == inputData.Data[i])
+                        sameLet++;
+
+                int percentage = 100 * sameLet / data.CountDataLet;
+
+                return percentage >= 60;
+            }
+        }
+
+        /// <summary>
+        /// Get the specific info about words.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="inputData"></param>
+        /// <returns></returns>
+        private SpecificInfoAboutData GetSpecificInfoAboutData(string data)
+        {
+            var lowDataWithoutSpaces = data.Replace(" ", "").ToLower();
+            var countLet = data.Count();
+
+            var specificInfoAboutData = new SpecificInfoAboutData(lowDataWithoutSpaces, countLet);
+
+            return specificInfoAboutData;
+        }
     }
 }

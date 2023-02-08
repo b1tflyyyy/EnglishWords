@@ -93,23 +93,23 @@ namespace EnglishWords.BL.Services.DataHandler
         /// <param name="data"></param>
         /// <param name="inputData"></param>
         /// <returns></returns>
-        public bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData)
-        {
-            if (data.CountDataLet > inputData.CountDataLet || inputData.CountDataLet == 0)
-                return false;
-            else
-            {
-                var sameLet = 0;
+        //public bool CompareData(SpecificInfoAboutData data, SpecificInfoAboutData inputData)
+        //{
+        //    if (data.CountDataLet > inputData.CountDataLet || inputData.CountDataLet == 0)
+        //        return false;
+        //    else
+        //    {
+        //        var sameLet = 0;
 
-                for(int i = 0; i < data.CountDataLet; i++)
-                    if (data.Data[i] == inputData.Data[i])
-                        sameLet++;
+        //        for (int i = 0; i < data.CountDataLet; i++)
+        //            if (data.Data[i] == inputData.Data[i])
+        //                sameLet++;
 
-                int percentage = 100 * sameLet / data.CountDataLet;
-                
-                return percentage >= 60;
-            }
-        }
+        //        int percentage = 100 * sameLet / data.CountDataLet;
+
+        //        return percentage >= 60;
+        //    }
+        //}
 
         /// <summary>
         /// Get the specific info about words.
@@ -118,14 +118,14 @@ namespace EnglishWords.BL.Services.DataHandler
         /// <param name="data"></param>
         /// <param name="inputData"></param>
         /// <returns></returns>
-        public SpecificInfoAboutData GetSpecificInfoAboutData(string data)
-        {
-            var lowDataWithoutSpaces = data.Replace(" ", "").ToLower();
-            var countLet = data.Count();
+        //public SpecificInfoAboutData GetSpecificInfoAboutData(string data)
+        //{
+        //    var lowDataWithoutSpaces = data.Replace(" ", "").ToLower();
+        //    var countLet = data.Count();
 
-            var specificInfoAboutData = new SpecificInfoAboutData(lowDataWithoutSpaces, countLet);
+        //    var specificInfoAboutData = new SpecificInfoAboutData(lowDataWithoutSpaces, countLet);
 
-            return specificInfoAboutData;
-        }
+        //    return specificInfoAboutData;
+        //}
     }
 }
